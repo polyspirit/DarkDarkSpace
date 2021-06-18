@@ -51,4 +51,10 @@ public class Ship : ShipBase
         }
     }
 
+    protected override void Death()
+    {
+        Destroy(gameObject);
+        Game.GameOver();
+    }
+
 }

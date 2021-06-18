@@ -27,7 +27,7 @@ public abstract class ShipBase : MonoBehaviour
         }
     }
 
-    protected void Death()
+    protected virtual void Death()
     {
         Destroy(gameObject);
     }
