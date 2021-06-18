@@ -23,7 +23,8 @@ public class BulletBase : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.GetComponent<Destroyer>())
+        Destroyer destroyer = other.GetComponent<Destroyer>();
+        if( other.GetComponent<EnemieBase>() || (destroyer && (destroyer.type == DestroyerType.Top)) )
         {
             Destroy(gameObject);
         }

@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemieBase : MonoBehaviour
+public abstract class EnemieBase : ShipBase
 {
-    
-    [SerializeField] protected float _speed = 10f;
-    [SerializeField] protected float _health = 10f;
 
     private void Update() 
     {
@@ -20,18 +17,20 @@ public abstract class EnemieBase : MonoBehaviour
         BulletBase bullet = other.GetComponent<BulletBase>();
         if(bullet)
         {
-            Damage(bullet);
-        }    
-    }
-
-    private void Damage(BulletBase bullet)
-    {
-        _health -= bullet.Damage;
-        if(_health <= 0)
-        {
-            Destroy(gameObject);
+            Damage(bullet.Damage);
         }
 
+        Ship ship = other.GetComponent<Ship>();
+        if(ship)
+        {
+            Damage(ship.collisionDamage);
+        }
+
+        Destroyer destroyer = other.GetComponent<Destroyer>();
+        if(destroyer && (destroyer.type == DestroyerType.Bottom))
+        {
+            Death();
+        }
     }
 
 

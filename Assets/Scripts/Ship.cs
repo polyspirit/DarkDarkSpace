@@ -2,20 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ship : MonoBehaviour
+public class Ship : ShipBase
 {
-
-    [SerializeField] private float _speed = 10f;
 
     private bool _onHold = false;
 
     // props
     public bool OnHold { get => _onHold; }
-
-    private void Start()
-    {
-        
-    }
 
     private void Update()
     {
@@ -39,11 +32,6 @@ public class Ship : MonoBehaviour
         }
     }
 
-    private void Death()
-    {
-        Destroy(gameObject);
-    }
-
     private void OnMouseDown() 
     {
         _onHold = true;
@@ -56,11 +44,11 @@ public class Ship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.GetComponent<EnemieBase>())
+        EnemieBase enemie = other.GetComponent<EnemieBase>();
+        if(enemie)
         {
-            Death();
+            Damage(enemie.collisionDamage);
         }
-
     }
 
 }
